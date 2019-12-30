@@ -41,7 +41,6 @@ public class HomeViewModel extends ViewModel implements Callback<List<Collection
                 .build();
 
         WallPaperAPI wallPaperAPI = retrofit.create(WallPaperAPI.class);
-
         wallPaperAPI.getImagesCollection(Constants.CLIENT_ID).enqueue(this);
 
     }
