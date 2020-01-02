@@ -12,18 +12,60 @@
         android:background="@color/colorAccent"
         android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/tvCollectionName"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="#95000000"
         android:paddingLeft="4dp"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:textAllCaps="true"
-        android:textColor="@android:color/white"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/ivCreator"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="4dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/ivCompany"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/ivCreator"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/unsplash" />
+
+        <ImageView
+            android:id="@+id/ivPortfolio"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/ivCompany"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_action_name" />
+
+        <TextView
+            android:id="@+id/tvCollectionName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivCreator"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
 
     <ImageView
         android:id="@+id/ivMenu"

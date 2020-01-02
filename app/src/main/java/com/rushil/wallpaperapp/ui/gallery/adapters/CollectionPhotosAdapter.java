@@ -45,6 +45,9 @@ public class CollectionPhotosAdapter extends RecyclerView.Adapter<CollectionPhot
         holder.tvCollectionName.setText(collectionsResponseList.get(position).altDescription);
         Glide.with(context).load(collectionsResponseList.get(position).urls.small)
                 .into(holder.ivCollectionPics);
+        Glide.with(context).load(collectionsResponseList.get(position).user.profileImage.small)
+                .into(holder.ivCreator);
+
     }
 
     @Override
@@ -54,13 +57,15 @@ public class CollectionPhotosAdapter extends RecyclerView.Adapter<CollectionPhot
 
     class Holder extends RecyclerView.ViewHolder implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
 
-        private ImageView ivCollectionPics, ivMenu;
+        private ImageView ivCollectionPics, ivMenu, ivCreator, ivCompany;
         private TextView tvCollectionName;
 
         Holder(@NonNull View itemView) {
             super(itemView);
             tvCollectionName = itemView.findViewById(R.id.tvCollectionName);
             ivCollectionPics = itemView.findViewById(R.id.ivCollectionPics);
+            ivCreator = itemView.findViewById(R.id.ivCreator);
+            ivCompany = itemView.findViewById(R.id.ivCompany);
             ivMenu = itemView.findViewById(R.id.ivMenu);
             ivMenu.setOnClickListener(this);
         }

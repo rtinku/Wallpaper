@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.rushil.wallpaperapp.misc.Utility;
 import com.rushil.wallpaperapp.ui.gallery.GalleryFragment;
 import com.rushil.wallpaperapp.ui.home.HomeFragment;
+import com.rushil.wallpaperapp.ui.search.SearchFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -59,6 +60,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_gallery:
                 Utility.replaceFragment(getSupportFragmentManager(), new GalleryFragment(), R.id.nav_host_fragment, "GALLERY");
+                break;
+
+            case R.id.nav_send:
+                Utility.replaceFragment(getSupportFragmentManager(), new SearchFragment(),
+                        R.id.nav_host_fragment, "SEARCH");
+
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
