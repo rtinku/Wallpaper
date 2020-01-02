@@ -1,5 +1,6 @@
 package com.rushil.wallpaperapp.ui.gallery.adapters;
 
+import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -48,8 +50,8 @@ public class CollectionPhotosAdapter extends RecyclerView.Adapter<CollectionPhot
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.tvCollectionName.setText(collectionsResponseList.get(position).description);
-        Glide.with(context).load(collectionsResponseList.get(position).urls.raw)
+        holder.tvCollectionName.setText(collectionsResponseList.get(position).altDescription);
+        Glide.with(context).load(collectionsResponseList.get(position).urls.small)
                 .into(holder.ivCollectionPics);
     }
 
@@ -87,17 +89,21 @@ public class CollectionPhotosAdapter extends RecyclerView.Adapter<CollectionPhot
                     final WallpaperManager wallpaperManager = (WallpaperManager) context.getSystemService(Context.WALLPAPER_SERVICE);
                     if (wallpaperManager != null) {
 
+                        final ProgressDialog progressDialog = new ProgressDialog(context);
+                        progressDialog.setTitle("Set Wallpaper....");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
                         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-
-
                         Glide.with(context).asBitmap().load(collectionsResponseList.get(getAdapterPosition())
                                 .urls.full)
-
-                                .into(new CustomTarget<Bitmap>(displayMetrics.widthPixels, displayMetrics.heightPixels) {
+                                .override(displayMetrics.widthPixels, displayMetrics.heightPixels)
+                                .into(new CustomTarget<Bitmap>() {
                                     @Override
                                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                         try {
                                             wallpaperManager.setBitmap(resource);
+                                            progressDialog.dismiss();
+                                            ((AppCompatActivity)context).finish();
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }

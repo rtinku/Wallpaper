@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rushil.wallpaperapp.R;
@@ -61,8 +62,8 @@ public class GalleryFragment extends Fragment implements Observer<List<Collectio
 
     private void initViews(View view) {
         rvCollectionPhotos = view.findViewById(R.id.rvCollectionPhotos);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, Constants.SPAN_COUNT);
-        rvCollectionPhotos.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        rvCollectionPhotos.setLayoutManager(linearLayoutManager);
     }
 
     private void setListeners() {
@@ -72,7 +73,7 @@ public class GalleryFragment extends Fragment implements Observer<List<Collectio
 
     @Override
     public void onChanged(List<CollectionPhotosResponse> collectionPhotosResponses) {
-        CollectionPhotosAdapter collectionPhotosAdapter=new CollectionPhotosAdapter(context,collectionPhotosResponses);
+        CollectionPhotosAdapter collectionPhotosAdapter = new CollectionPhotosAdapter(context, collectionPhotosResponses);
         rvCollectionPhotos.setAdapter(collectionPhotosAdapter);
     }
 }
