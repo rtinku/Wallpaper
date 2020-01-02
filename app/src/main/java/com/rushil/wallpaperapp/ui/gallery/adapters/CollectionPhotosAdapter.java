@@ -1,11 +1,6 @@
 package com.rushil.wallpaperapp.ui.gallery.adapters;
 
-import android.app.ProgressDialog;
-import android.app.WallpaperManager;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,23 +10,20 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.rushil.wallpaperapp.R;
+import com.rushil.wallpaperapp.misc.Utility;
 import com.rushil.wallpaperapp.ui.gallery.pojo.CollectionPhotosResponse;
 
-import java.io.IOException;
 import java.util.List;
 
 public class CollectionPhotosAdapter extends RecyclerView.Adapter<CollectionPhotosAdapter.Holder> {
 
     private Context context;
     private List<CollectionPhotosResponse> collectionsResponseList;
+
 
     public CollectionPhotosAdapter(Context context, List<CollectionPhotosResponse> collectionsResponseList) {
         this.context = context;
@@ -85,38 +77,7 @@ public class CollectionPhotosAdapter extends RecyclerView.Adapter<CollectionPhot
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.set_wallpaper:
-
-                    final WallpaperManager wallpaperManager = (WallpaperManager) context.getSystemService(Context.WALLPAPER_SERVICE);
-                    if (wallpaperManager != null) {
-
-                        final ProgressDialog progressDialog = new ProgressDialog(context);
-                        progressDialog.setTitle("Set Wallpaper....");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
-                        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-                        Glide.with(context).asBitmap().load(collectionsResponseList.get(getAdapterPosition())
-                                .urls.full)
-                                .override(displayMetrics.widthPixels, displayMetrics.heightPixels)
-                                .into(new CustomTarget<Bitmap>() {
-                                    @Override
-                                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                        try {
-                                            wallpaperManager.setBitmap(resource);
-                                            progressDialog.dismiss();
-                                            ((AppCompatActivity)context).finish();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                                    }
-                                });
-                    }
-
-
+                    Utility.setWallPaper(context, collectionsResponseList.get(getAdapterPosition()).urls.full);
                     break;
             }
             return true;
